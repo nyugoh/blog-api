@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Blog = mongoose.model('Blog');
+const Category = mongoose.model('Category');
 
 module.exports = (app) => {
   app.use('/api/v1/blog', router);
@@ -21,7 +22,9 @@ router.post('/add', (req, res) => {
    blog.slug = req.body.blog.title.split(' ').map( segment => segment.toLowerCase()).join('-');
   blog.save().then( blog => {
     if (blog)
-      res.json({status: 'ok', blog});
+      Category.findOneAndUpdate({ _id: blog.category }, { $inc: { blogs: 1} }, { new: true }).then( category => {
+        res.json({status: 'ok', blog, category});
+      })
   }).catch( errors =>{
     res.status(404).json({message: errors.message});
   });
@@ -31,6 +34,20 @@ router.put('/edit', (req, res) => {
   Blog.findByIdAndUpdate(req.body.blog._id, req.body.blog, { new: true }).then( blog => {
     if (blog)
       res.json({status: 'ok', blog});
+  }).catch( errors =>{
+    res.status(404).json({message: errors.message});
+  });
+});
+
+router.put('/archive/:id', (req, res) => {
+  Blog.findById(req.params.id).then( blog => {
+    if (blog){
+      blog.status = blog.status === 0? 1: 0;
+      blog.save().then(blog =>{
+        if (blog)
+          res.json({status: 'ok', blog});
+      });
+    }
   }).catch( errors =>{
     res.status(404).json({message: errors.message});
   });
