@@ -15,7 +15,7 @@ const BlogSchema = new Schema({
   },
   imageUrl: {
     type: String,
-    default: "https://vignette.wikia.nocookie.net/epic-rap-battles-of-cartoons/images/c/cb/SpongeBob.png/revision/latest?cb=20131030015532"
+    default: "https://www.emberjs.com/images/tomsters/emberconf-2017-fcff003f.png"
   },
   imageCpation: {
     type: String,
