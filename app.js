@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 import bluebird from 'bluebird';
 
 mongoose.connect(config.db, { useMongoClient: true });
-mongoose.promise = bluebird;
+mongoose.Promise = bluebird;
 const db = mongoose.connection;
 db.on('error', () => {
   throw new Error('unable to connect to database at ' + config.db);

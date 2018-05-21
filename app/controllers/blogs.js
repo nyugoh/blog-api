@@ -22,7 +22,7 @@ router.post('/add', (req, res) => {
    blog.slug = req.body.blog.title.split(' ').map( segment => segment.toLowerCase()).join('-');
   blog.save().then( blog => {
     if (blog)
-      Category.findOneAndUpdate({ _id: blog.category }, { $inc: { blogs: 1} }, { new: true }).then( category => {
+      Category.findOneAndUpdate({ name: blog.category }, { $inc: { blogs: 1} }, { new: true }).then( category => {
         res.json({status: 'ok', blog, category});
       })
   }).catch( errors =>{

@@ -8,7 +8,16 @@ module.exports = (app) => {
 };
 
 router.get('/list', (req, res) => {
-  Category.find().then( categories => {
+  Category.aggregate([
+    {
+      $lookup: {
+        "from": "blogs",
+        "localField": "name",
+        "foreignField": "category",
+        "as": "articles"
+      }
+    }
+  ]).then( categories => {
     if (categories)
       res.json({ categories});
   }).catch( errors =>{
