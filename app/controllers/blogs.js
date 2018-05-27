@@ -17,6 +17,15 @@ router.get('/list', (req, res) => {
   });
 });
 
+router.get('/:category', (req, res) => {
+  Blog.find({ category: req.params.category }).then(blogs => {
+    if (blogs)
+      res.json({ blogs });
+  }).catch(errors => {
+    res.status(404).json({ message: errors.message });
+  });
+});
+
 router.post('/add', (req, res) => {
   const blog = new Blog(req.body.blog);
    blog.slug = req.body.blog.title.split(' ').map( segment => segment.toLowerCase()).join('-');
