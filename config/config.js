@@ -21,7 +21,7 @@ const config = {
       name: 'api'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/api-test'
+    db: process.env.MONGODB
   },
 
   production: {
@@ -30,7 +30,7 @@ const config = {
       name: 'api'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/api-production'
+    db: process.env.MONGODB
   }
 };
 
