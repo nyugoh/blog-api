@@ -13,6 +13,10 @@ const BlogSchema = new Schema({
     type: String,
     default: "This is a test blog. Lorem ipsum text"
   },
+  description: {
+    type: String,
+    required: true
+  },
   imageUrl: {
     type: String,
     default: "https://www.emberjs.com/images/tomsters/emberconf-2017-fcff003f.png"
