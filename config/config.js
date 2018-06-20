@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 const rootPath = path.normalize(__dirname + '/..');
 
 dotenv.config();
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV;
 
 const config = {
   development: {
@@ -21,7 +21,7 @@ const config = {
       name: 'api'
     },
     port: process.env.PORT || 3000,
-    db: process.env.MONGODB
+    db: 'mongodb://localhost/blog-test'
   },
 
   production: {

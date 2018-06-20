@@ -10,7 +10,7 @@ const methodOverride = require('method-override');
 const exphbs  = require('express-handlebars');
 
 module.exports = (app, config) => {
-  const env = process.env.NODE_ENV || 'development';
+  const env = process.env.NODE_ENV;
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
@@ -23,7 +23,9 @@ module.exports = (app, config) => {
   app.set('view engine', 'handlebars');
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
-  app.use(logger('dev'));
+  if (env === 'development')
+    app.use(logger('dev'));
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
@@ -36,6 +38,10 @@ module.exports = (app, config) => {
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach((controller) => {
     require(controller)(app);
+  });
+
+  app.get('*', (req, res) => {
+    res.status(505).json({ message: 'You have hit a wild-route' });
   });
 
   app.use((req, res, next) => {

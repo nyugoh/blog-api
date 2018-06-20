@@ -8,6 +8,7 @@ module.exports = (app) => {
   app.use('/api/v1/blog', router);
 };
 
+
 router.get('/list', (req, res) => {
   Blog.find().then( blogs => {
     if (blogs)
