@@ -7,7 +7,7 @@
     "dev": "nodemon --exec babel-node app.js",
     "start": "NODE_END=production node ./build/app.js",
     "prestart": "npm build",
-    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --exit",
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive --exit",
     "build": "babel -d ./build .",
     "prebuild": "rm -rf ./build/*",
     "test:coverage": "nyc npm test",

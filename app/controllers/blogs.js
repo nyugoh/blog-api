@@ -8,7 +8,6 @@ module.exports = (app) => {
   app.use('/api/v1/blog', router);
 };
 
-
 router.get('/list', (req, res) => {
   Blog.find().then( blogs => {
     if (blogs)
@@ -18,7 +17,7 @@ router.get('/list', (req, res) => {
   });
 });
 
-router.get('/:category', (req, res) => {
+router.get('/categories/:category', (req, res) => {
   Blog.find({ category: req.params.category }).then(blogs => {
     if (blogs)
       res.json({ blogs });
@@ -70,4 +69,8 @@ router.delete('/delete/:id', (req, res) => {
   }).catch( errors =>{
     res.status(404).json({ message: errors.message });
   });
+});
+
+router.get('/*', (req, res) => {
+  res.status(505).json({ message: 'You have hit blog wild-route' });
 });

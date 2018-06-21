@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 const app = require('../app.js');
-const baseUrl = `http://localhost:${process.env.PORT}/api/blog/v1`;
+const baseUrl = `http://localhost:${process.env.PORT}/api/v1/blog`;
 
 chai.use(require('chai-http'));
 

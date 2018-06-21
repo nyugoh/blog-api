@@ -53,3 +53,7 @@ router.delete('/delete/:id', (req, res) => {
     res.status(404).json({ message: errors.message });
   });
 });
+
+router.get('/*', (req, res) => {
+  res.status(505).json({ message: 'You have hit a wild-route' });
+});
