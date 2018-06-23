@@ -21,7 +21,7 @@ const config = {
       name: 'api'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blog-test'
+    db: 'mongodb://tester:Tester20@ds117431.mlab.com:17431/mocha-tests-builds'
   },
 
   production: {
