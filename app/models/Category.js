@@ -26,4 +26,4 @@ var CategorySchema = new Schema({
 //   next();
 // });
 
-mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Category', CategorySchema);

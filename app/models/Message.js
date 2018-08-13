@@ -18,4 +18,4 @@ var MessageSchema = new Schema({
   }
 }, { timestamps: true });
 
-mongoose.model('Message', MessageSchema);
+module.exports = mongoose.model('Message', MessageSchema);
