@@ -8,7 +8,7 @@
     "start": "NODE_END=production node ./build/app.js",
     "prestart": "npm build",
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive --exit",
-    "build": "babel -d ./build .",
+    "build": "./node_modules/.bin/babel app -d build",
     "prebuild": "rm -rf ./build/*",
     "test:coverage": "nyc npm test",
     "test:unit": "mocha --recursive test/middleware test/models test/routes",

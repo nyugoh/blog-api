@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('./config/config');
+const config = require('./app/config/config');
 const glob = require('glob');
 const mongoose = require('mongoose');
 import bluebird from 'bluebird';
@@ -11,11 +11,11 @@ db.on('error', () => {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-const models = glob.sync(config.root + '/app/models/*.js');
+const models = glob.sync(config.root + './app/models/*.js');
 models.forEach(function (model) {
   require(model);
 });
-const app = require('./config/express')(express(), config);
+const app = require('./app/config/express')(express(), config);
 
 module.exports = app;
 
