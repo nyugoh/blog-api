@@ -1,19 +1,11 @@
-'use strict';
+const path = require('path');
+import dotenv from 'dotenv';
+const rootPath = path.normalize(__dirname + '/../');
 
-var _dotenv = require('dotenv');
+dotenv.config();
+const env = process.env.NODE_ENV;
 
-var _dotenv2 = _interopRequireDefault(_dotenv);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var path = require('path');
-
-var rootPath = path.normalize(__dirname + '/../');
-
-_dotenv2.default.config();
-var env = process.env.NODE_ENV;
-
-var config = {
+const config = {
   development: {
     root: rootPath,
     app: {

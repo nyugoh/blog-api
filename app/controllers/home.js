@@ -1,10 +1,12 @@
-const express = require('express');
-const router = express.Router();
+'use strict';
 
-module.exports = (app) => {
+var express = require('express');
+var router = express.Router();
+
+module.exports = function (app) {
   app.use(router);
 };
 
-router.get('/', (req, res) => {
+router.get('/', function (req, res) {
   res.json({ message: 'Welcome to the blog api' });
 });

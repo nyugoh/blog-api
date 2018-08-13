@@ -1,30 +1,38 @@
-import express from 'express';
-import glob from 'glob';
+'use strict';
 
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const compress = require('compression');
-const methodOverride = require('method-override');
-const exphbs  = require('express-handlebars');
+var _express = require('express');
 
-module.exports = (app, config) => {
-  const env = process.env.NODE_ENV;
+var _express2 = _interopRequireDefault(_express);
+
+var _glob = require('glob');
+
+var _glob2 = _interopRequireDefault(_glob);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var compress = require('compression');
+var methodOverride = require('method-override');
+var exphbs = require('express-handlebars');
+
+module.exports = function (app, config) {
+  var env = process.env.NODE_ENV;
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
   app.engine('handlebars', exphbs({
-    layoutsDir: config.root + '/app/views/layouts/',
+    layoutsDir: config.root + 'views/layouts/',
     defaultLayout: 'main',
-    partialsDir: [config.root + '/app/views/partials/']
+    partialsDir: [config.root + 'views/partials/']
   }));
-  app.set('views', config.root + '/app/views');
+  app.set('views', config.root + 'views');
   app.set('view engine', 'handlebars');
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
-  if (env === 'development')
-    app.use(logger('dev'));
+  if (env === 'development') app.use(logger('dev'));
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -32,26 +40,25 @@ module.exports = (app, config) => {
   }));
   app.use(cookieParser());
   app.use(compress());
-  app.use(express.static(config.root + '/public'));
+  app.use(_express2.default.static(config.root + '/public'));
   app.use(methodOverride());
-
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  controllers.forEach((controller) => {
+  var controllers = _glob2.default.sync(config.root + 'controllers/*.js');
+  controllers.forEach(function (controller) {
     require(controller)(app);
   });
 
-  app.get('*', (req, res) => {
+  app.get('*', function (req, res) {
     res.status(505).json({ message: 'You have hit a wild-route' });
   });
 
-  app.use((req, res, next) => {
+  app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
 
   if (app.get('env') === 'development') {
-    app.use((err, req, res, next) => {
+    app.use(function (err, req, res, next) {
       res.status(err.status || 500);
       res.status(500).json({
         message: err.message,
@@ -61,7 +68,7 @@ module.exports = (app, config) => {
     });
   }
 
-  app.use((err, req, res, next) => {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.status(505).json({
       message: err.message,
