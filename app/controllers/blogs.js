@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const Blog = mongoose.model('Blog');
+const Message = mongoose.model('Message');
 const Category = mongoose.model('Category');
 
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  secure: false, // true for 465, false for other ports
+  auth: {
+      user: process.env.EMAIL_FROM,
+      pass: process.env.EMAIL_PASS,
+  }
+});
 module.exports = (app) => {
   app.use('/api/v1/blog', router);
 };
@@ -71,6 +82,66 @@ router.delete('/delete/:id', (req, res) => {
   });
 });
 
+router.post('/send', (req, res) => {
+  const message = new Message(req.body.message);
+  message.save().then( message => {
+    if (message){
+      sendMail(message, function (status) {
+        if (status)
+          res.json({ status: 'ok', message });
+        else
+          res.status(404).json({ status: 'ok', message });
+      });
+    }
+  }).catch( errors =>{
+    res.status(400).json({message: errors.message});
+  });
+});
+
 router.get('/*', (req, res) => {
   res.status(505).json({ message: 'You have hit blog wild-route' });
 });
+
+
+function sendMail(message, callback) {
+  var mailOptions = {
+    from: process.env.EMAIL_FROM,
+    to: process.env.EMAIL_TO,
+    subject: message.subject,
+    html: `<table class="body-wrap">
+            	<tr>
+            		<td></td>
+            		<td class="container" bgcolor="#FFFFFF">
+            			<div class="content">
+            			<table>
+            				<tr>
+            					<td>
+            						<h3>From </h3>
+            						<p style="padding-left: 20px"><b>Name::</b> ${message.name}</p>
+            						<p style="padding-left: 20px"><b>Email:</b> ${message.email}</p>
+            						<p style="padding-left: 20px"><b>ID:</b> ${message._id}</p>
+            					</td>
+            				</tr>
+                    <tr>
+                      <td>
+                        <h3>Message</h3>
+                        <p>${message.message}</p>
+                      </td>
+                    </tr>
+            			</table>
+            			</div>
+            		</td>
+            		<td></td>
+            	</tr>
+            </table>`
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error)
+      callback(false);
+    } else {
+      callback(true);
+    }
+  });
+}

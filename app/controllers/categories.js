@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
 
 module.exports = (app) => {
-  app.use('/api/v1/blog/categories', router);
+  app.use('/api/v1/categories', router);
 };
 
 router.get('/list', (req, res) => {
@@ -19,7 +19,7 @@ router.get('/list', (req, res) => {
     }
   ]).then( categories => {
     if (categories)
-      res.json({ categories});
+      res.json({ categories });
   }).catch( errors =>{
     res.status(404).json({message: errors.message});
   });
