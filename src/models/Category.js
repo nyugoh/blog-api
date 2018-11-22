@@ -15,7 +15,7 @@ const CategorySchema = new Schema({
   },
   imageUrl: {
     type: String,
-    default: "https://vignette.wikia.nocookie.net/epic-rap-battles-of-cartoons/images/c/cb/SpongeBob.png/revision/latest?cb=20131030015532"
+    default: "https://vignette.wikia.nocookie.net/epic-rap-battles-of-cartoons/img/c/cb/SpongeBob.png/revision/latest?cb=20131030015532"
   }
 }, { timestamps: true });
 

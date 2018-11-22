@@ -1,10 +1,13 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
 module.exports = (app) => {
-  app.use(router);
+  app.use('/', router);
 };
 
 router.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the blog api' });
+  res.render('index', { title: 'Welcome to the blog api' });
+});
+
+router.get('/:blogSlug', (req, res) => {
+  res.render('index', { title: req.params['blogSlug'] });
 });
