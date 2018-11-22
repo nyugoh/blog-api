@@ -1,24 +1,25 @@
 const express = require('express');
-const config = require('./app/config/config');
+const config = require('./config/config');
 const glob = require('glob');
 const mongoose = require('mongoose');
-import bluebird from 'bluebird';
+const bluebird = require('bluebird');
 
 mongoose.connect(config.db, { useMongoClient: true });
 mongoose.Promise = bluebird;
 const db = mongoose.connection;
+
 db.on('error', () => {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-const models = glob.sync(config.root + './app/models/*.js');
+const models = glob.sync(config.root + './src/models/*.js');
 models.forEach(function (model) {
   require(model);
 });
-const app = require('./app/config/express')(express(), config);
-
-module.exports = app;
+const app = require('./config/express')(express(), config);
 
 app.listen(config.port, () => {
   console.log('Express server listening on port ' + config.port);
 });
+
+module.exports = app;

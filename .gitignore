@@ -3,7 +3,8 @@ node_modules/
 .sass-cache
 
 .env
-.env-development
 
 build/
 .idea/
+
+yarn-error.log

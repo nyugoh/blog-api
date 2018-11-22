@@ -1,19 +1,11 @@
 {
-  "name": "api",
+  "name": "blog-api",
   "version": "0.0.1",
   "private": true,
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node app.js",
-    "start": "NODE_END=production node ./app/app.js",
-    "prestart": "npm build",
-    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive --exit",
-    "build": "./node_modules/.bin/babel src -d app ",
-    "prebuild": "rm -rf ./app/*",
-    "postbuild": "./node_modules/.bin/babel app.js -d ./app && cp .env ./app",
-    "test:coverage": "nyc npm test",
-    "test:unit": "mocha --recursive test/middleware test/models test/routes",
-    "test:integration": "mocha --recursive test/integration"
+    "start": "nodemon app.js",
+    "test": "jest"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -28,24 +20,13 @@
     "method-override": "^2.3.0",
     "mongoose": "^4.1.2",
     "morgan": "^1.6.1",
-    "nodemailer": "^4.6.7",
-    "serve-favicon": "^2.3.0"
+    "nodemailer": "^4.6.7"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "chai": "^3.5.0",
-    "chai-http": "^4.0.0",
     "debug": "^2.2.0",
-    "gulp": "^3.9.0",
-    "gulp-livereload": "^3.8.0",
-    "gulp-nodemon": "^2.0.2",
-    "gulp-plumber": "^1.0.0",
-    "mocha": "^4.0.1",
-    "nyc": "^10.0.0",
-    "supertest": "^2.0.0"
+    "jest": "^23.6.0"
   },
   "engines": {
-    "node": ">=6.14.0"
+    "node": ">=8.11.2"
   }
 }

@@ -1,28 +1,25 @@
-import express from 'express';
-import glob from 'glob';
-
-const favicon = require('serve-favicon');
+const express = require('express');
+const glob = require('glob');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compress = require('compression');
 const methodOverride = require('method-override');
-const exphbs  = require('express-handlebars');
+const exphbs = require('express-handlebars');
 
 module.exports = (app, config) => {
   const env = process.env.NODE_ENV;
   app.locals.ENV = env;
-  app.locals.ENV_DEVELOPMENT = env == 'development';
+  app.locals.ENV_DEVELOPMENT = env === 'development';
 
   app.engine('handlebars', exphbs({
-    layoutsDir: config.root + '/views/layouts/',
+    layoutsDir: config.root + '/src/views/layouts/',
     defaultLayout: 'main',
-    partialsDir: [config.root + '/views/partials/']
+    partialsDir: [config.root + '/src/views/partials/']
   }));
-  app.set('views', config.root + '/views');
+  app.set('views', config.root + '/src/views');
   app.set('view engine', 'handlebars');
 
-  // app.use(favicon(config.root + '/public/img/favicon.ico'));
   if (env === 'development')
     app.use(logger('dev'));
     app.use(function(req, res, next) {
@@ -41,7 +38,7 @@ module.exports = (app, config) => {
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
-  var controllers = glob.sync(config.root + 'controllers/*.js');
+  var controllers = glob.sync(config.root + '/src/controllers/*.js');
   controllers.forEach((controller) => {
     require(controller)(app);
   });

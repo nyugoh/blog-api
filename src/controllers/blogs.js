@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const Blog = require('../models/Blog');
 const Message = require('../models/Message');
@@ -99,7 +98,7 @@ router.post('/send', (req, res) => {
 });
 
 router.get('/*', (req, res) => {
-  res.status(505).json({ message: 'You have hit blog wild-route' });
+  res.status(505).json({ message: 'You have hit blog wild-route...' });
 });
 
 

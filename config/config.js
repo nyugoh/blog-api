@@ -1,5 +1,5 @@
 const path = require('path');
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 const rootPath = path.normalize(__dirname + '/../');
 
 dotenv.config();
