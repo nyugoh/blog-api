@@ -2,6 +2,7 @@ const express = require('express');
 const glob = require('glob');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const compress = require('compression');
 const methodOverride = require('method-override');
@@ -36,6 +37,16 @@ module.exports = () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
+  app.use(session({
+    name: 'admin-session',
+    secret: process.env.SESSIONKEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: new Date(Date.now() + 3600000),
+      maxAge: 3600000
+    }
+  }));
   app.use(compress()); // compress http json
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());

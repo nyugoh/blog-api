@@ -50,10 +50,10 @@ router.delete('/delete/:id', (req, res) => {
     if (response)
       res.json({ status: 'ok', id: req.params.id });
   }).catch( errors =>{
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
 router.get('/*', (req, res) => {
-  res.status(505).json({ message: 'You have hit a wild-route' });
+  res.status(505).json({ error: true, message: 'You have hit a wild-route' });
 });

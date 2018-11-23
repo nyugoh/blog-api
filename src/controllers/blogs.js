@@ -22,7 +22,7 @@ router.get('/list', (req, res) => {
   Blog.find().then((blogs) => {
     if (blogs) res.json({ blogs });
   }).catch((errors) => {
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
@@ -30,13 +30,13 @@ router.get('/categories/:category', (req, res) => {
   Blog.find({ category: req.params.category }).then((blogs) => {
     if (blogs) res.json({ blogs });
   }).catch((errors) => {
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
 router.post('/add', (req, res) => {
   if (req.body.blog === undefined) {
-    res.status(404).json({ message: "A body is required" });
+    res.status(404).json({ error: true, message: "A body is required" });
     return;
   }
   const blog = new Blog(req.body.blog);
@@ -46,7 +46,7 @@ router.post('/add', (req, res) => {
         res.json({ status: 'ok', blog, category });
       })
   }).catch((errors) => {
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
@@ -54,7 +54,7 @@ router.put('/edit', (req, res) => {
   Blog.findByIdAndUpdate(req.body.blog._id, req.body.blog, { new: true }).then((blog) => {
     if (blog) res.json({ status: 'ok', blog });
   }).catch((errors) => {
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
@@ -67,7 +67,7 @@ router.put('/archive/:id', (req, res) => {
       });
     }
   }).catch((errors) => {
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
@@ -75,7 +75,7 @@ router.delete('/delete/:id', (req, res) => {
   Blog.findByIdAndRemove(req.params.id).then((response) => {
     if (response) res.json({ status: 'ok', id: req.params.id });
   }).catch((errors) => {
-    res.status(404).json({ message: errors.message });
+    res.status(404).json({ error: true, message: errors.message });
   });
 });
 
@@ -89,12 +89,12 @@ router.post('/send', (req, res) => {
       });
     }
   }).catch((errors) => {
-    res.status(400).json({ message: errors.message });
+    res.status(400).json({ error: true, message: errors.message });
   });
 });
 
 router.get('/*', (req, res) => {
-  res.status(505).json({ message: 'You have hit blog wild-route...' });
+  res.status(505).json({ error: true, message: 'You have hit blog wild-route...' });
 });
 
 

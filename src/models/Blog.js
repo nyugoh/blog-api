@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BlogSchema = new Schema({
-  title:{
+  title: {
     type: String,
     required: true
   },
-  slug: {
-    type: String
-  },
+  slug: { type: String },
   content: {
     type: String,
     default: "This is a test blog. Lorem ipsum text"
@@ -25,9 +23,7 @@ const BlogSchema = new Schema({
     type: String,
     default: "https://vignette.wikia.nocookie.net/epic-rap-battles-of-cartoons/img/c/cb/SpongeBob.png/revision/latest?cb=20131030015532"
   },
-  category: {
-    type: String
-  },
+  category: { type: String },
   status: {
     type: Number,
     default: 0
