@@ -29,7 +29,7 @@ var config = {
       name: 'api'
     },
     port: process.env.PORT || 4000,
-    db: process.env.MONGODB_TEST
+    db: "mongodb://<test>:<TestMaker@20>@ds117431.mlab.com:17431/mocha-tests-builds"
   },
 
   production: {
