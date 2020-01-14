@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const Blog = require('../../app/models/Blog');
 const app = require('../../app.js');
-const baseUrl = `http://localhost:${process.env.PORT}/api/v1/blog`;
+const baseUrl = `http://localhost:4000/api/v1/blog`;
 chai.use(require('chai-http'));
 
 describe('Blog model tests suite', function(){
@@ -15,7 +15,7 @@ describe('Blog model tests suite', function(){
 
   describe('It should', function () {
     before(function (done) {
-      Blog.remove({}, (err =>{
+      Blog.deleteMany({}, (err =>{
         done();
       }));
     });
@@ -53,7 +53,7 @@ describe('Blog model tests suite', function(){
 
   // Clear the database
   after(function (done) {
-    Blog.remove((err =>{
+    Blog.deleteMany({},(err =>{
       done();
     }));
   });

@@ -1,13 +1,13 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 const app = require('../app.js');
-const baseUrl = `http://localhost:${process.env.PORT}/api/v1/blog`;
+const baseUrl = `http://localhost:4000/api/v1/blog`;
 
 chai.use(require('chai-http'));
 
 describe('Blog API tests', function () {
   it('Home page contains a welcome message', function (done) {
-    chai.request('http://localhost:'+process.env.PORT)
+    chai.request('http://localhost:4000')
       .get('/')
       .end((err, res)=>{
         expect(err).to.be.a('null');

@@ -4,7 +4,7 @@ const glob = require('glob');
 const mongoose = require('mongoose');
 import bluebird from 'bluebird';
 
-mongoose.connect(config.db, { useMongoClient: true });
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = bluebird;
 const db = mongoose.connection;
 db.on('error', () => {

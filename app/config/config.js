@@ -19,8 +19,8 @@ var config = {
     app: {
       name: 'api'
     },
-    port: process.env.PORT || 3000,
-    db: process.env.MONGODB
+    port: process.env.PORT || 5000,
+    db: process.env.MONGODB_DEV
   },
 
   test: {
@@ -28,8 +28,8 @@ var config = {
     app: {
       name: 'api'
     },
-    port: process.env.PORT || 3000,
-    db: 'mongodb://tester:Tester20@ds117431.mlab.com:17431/mocha-tests-builds'
+    port: process.env.PORT || 4000,
+    db: process.env.MONGODB_TEST
   },
 
   production: {
@@ -38,7 +38,7 @@ var config = {
       name: 'api'
     },
     port: process.env.PORT || 3000,
-    db: process.env.MONGODB
+    db: process.env.MONGODB_PROD
   }
 };
 
