@@ -23,7 +23,7 @@
     "diff": "^3.5.0",
     "dotenv": "^5.0.1",
     "express": "^4.13.3",
-    "express-handlebars": "^3.0.0",
+    "express-handlebars": "^5.3.1",
     "glob": "^6.0.4",
     "method-override": "^2.3.0",
     "mongoose": "^5.7.5",
